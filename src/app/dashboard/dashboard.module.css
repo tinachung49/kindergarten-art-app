@@ -1,0 +1,176 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px;
+  animation: fade-in-up 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.header {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  margin-bottom: 32px;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid white;
+  box-shadow: var(--shadow-soft);
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.greeting {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.mainGrid {
+  width: 100%;
+  max-width: 900px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+}
+
+@media (min-width: 768px) {
+  .mainGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.cameraCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  text-decoration: none;
+  color: inherit;
+}
+
+.cameraCard:hover {
+  transform: translateY(-8px);
+}
+
+.cameraIcon {
+  font-size: 4rem;
+  margin-bottom: 16px;
+}
+
+.cameraCard:hover .cameraIcon {
+  animation: bounce-soft 2s ease-in-out infinite;
+}
+
+.cardTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cardText {
+  color: var(--color-text-muted);
+}
+
+.historyCard {
+  display: flex;
+  flex-direction: column;
+}
+
+.emptyState {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: 2px dashed var(--color-bg-secondary);
+  border-radius: var(--border-radius-lg);
+  padding: 32px;
+  min-height: 200px;
+}
+
+.emptyIcon {
+  font-size: 2.5rem;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.historyList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.historyItem {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  border-radius: var(--border-radius-lg);
+  background-color: #fafafa;
+  border: 2px solid var(--color-bg-secondary);
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.2s ease;
+}
+
+.historyItem:hover {
+  background-color: white;
+  border-color: var(--color-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-soft);
+}
+
+.historyItemIcon {
+  font-size: 2rem;
+  background-color: white;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.historyItemContent {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.historyItemTitle {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--color-text-main);
+}
+
+.historyItemDate {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
