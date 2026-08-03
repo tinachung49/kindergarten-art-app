@@ -28,15 +28,22 @@ export const authOptions: NextAuthOptions = {
       if (session.user && token.sub) {
         (session.user as { id?: string }).id = token.sub;
       }
+      (session as any).accessToken = token.accessToken;
+      (session as any).refreshToken = token.refreshToken;
       return session;
     },
-    async jwt({ token, user }) {
+    async jwt({ token, user, account }) {
       if (user) {
         token.sub = user.id;
+      }
+      if (account) {
+        token.accessToken = account.access_token;
+        token.refreshToken = account.refresh_token;
       }
       return token;
     },
   },
+  debug: true,
 };
 
 const handler = NextAuth(authOptions);

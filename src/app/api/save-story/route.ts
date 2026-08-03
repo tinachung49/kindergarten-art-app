@@ -19,14 +19,23 @@ export async function POST(req: Request) {
     }
 
     // 1. Get user's Google Account to access Google Drive & Docs API
-    const account = await prisma.account.findFirst({
-      where: {
-        userId: session.user.id,
-        provider: "google",
-      },
-    });
+    let accessToken = (session as any).accessToken;
+    let refreshToken = (session as any).refreshToken;
 
-    if (!account || !account.access_token) {
+    if (!accessToken) {
+      const account = await prisma.account.findFirst({
+        where: {
+          userId: session.user.id,
+          provider: "google",
+        },
+      });
+      if (account) {
+        accessToken = account.access_token;
+        refreshToken = account.refresh_token;
+      }
+    }
+
+    if (!accessToken) {
       return NextResponse.json({ error: "Google 帳號未連結或沒有授權" }, { status: 401 });
     }
 
@@ -36,9 +45,8 @@ export async function POST(req: Request) {
     );
 
     oauth2Client.setCredentials({
-      access_token: account.access_token,
-      refresh_token: account.refresh_token,
-      expiry_date: account.expires_at ? account.expires_at * 1000 : undefined,
+      access_token: accessToken,
+      refresh_token: refreshToken,
     });
 
     const drive = google.drive({ version: 'v3', auth: oauth2Client });
