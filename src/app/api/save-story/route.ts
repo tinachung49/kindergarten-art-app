@@ -195,7 +195,23 @@ export async function POST(req: Request) {
 
     const documentUrl = `https://docs.google.com/document/d/${documentId}/edit`;
 
-    // 6. Save record to Database
+    // 6. Ensure User record exists in DB to satisfy Foreign Key Constraint
+    await prisma.user.upsert({
+      where: { id: session.user.id },
+      update: {
+        name: session.user.name || undefined,
+        email: session.user.email || undefined,
+        image: session.user.image || undefined,
+      },
+      create: {
+        id: session.user.id,
+        name: session.user.name || "使用者",
+        email: session.user.email || undefined,
+        image: session.user.image || undefined,
+      },
+    });
+
+    // 7. Save record to Database
     await prisma.conversation.create({
       data: {
         userId: session.user.id,
